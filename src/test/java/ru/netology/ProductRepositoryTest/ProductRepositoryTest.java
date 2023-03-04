@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.exception.AlreadyExistsException;
+import ru.netology.exception.NotFoundException;
 import ru.netology.repository.ProductRepository;
 
 
@@ -84,16 +86,82 @@ public class ProductRepositoryTest {
         Assertions.assertEquals(expected, actual);
     }
     @Test
-    public void save1() {
-        Product book4 = new Book(4, "Книга 4", 350, "Сталин");
+    public void shouldBookSave10() {
+        Product book10 = new Book(10, "Книга 4", 350, "Сталин");
 
-        repo.save(book4);
+        repo.save(book10);
 
-        Product[] expected = {book1, book2, book3, smart1, smart2, smart3, book4};
+        Product[] expected = {book1, book2, book3, smart1, smart2, smart3, book10};
         Product[] actual = repo.getItems();
 
         Assertions.assertArrayEquals(expected, actual);
     }
+    @Test
+    public  void shouldRemoveById100(){
+
+
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(100);
+        });
+    }
+    @Test
+    public  void shouldRemoveByIdMinus100(){
+
+
+
+          Assertions.assertThrows(NotFoundException.class, () -> {
+              repo.removeById(-100);
+          });
+        }
+    @Test
+    public  void shouldRemoveById4(){
+
+        repo.removeById(4);
+
+        Product[] expected = {book1,book2, book3, smart2, smart3};
+        Product[] actual = repo.getItems();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public  void shouldRemoveByAllId(){
+
+        repo.removeById(1);
+        repo.removeById(2);
+        repo.removeById(3);
+        repo.removeById(4);
+        repo.removeById(5);
+        repo.removeById(6);
+
+        Product[] expected = {};
+        Product[] actual = repo.getItems();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public  void shouldSaveId1(){
+
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            repo.save(book1);
+        });
+    }
+    @Test
+    public void shouldSaveId7And8(){
+        Product book4 = new Book(7, "Победа", 1000, "Лао Дзы");
+        Product smart4 = new Smartphone(8, "SuperBuper", 1001, "China project");
+
+        repo.save(book4);
+        repo.save(smart4);
+
+        Product[] expected = {book1,book2, book3,smart1, smart2, smart3,book4, smart4};
+        Product[] actual = repo.getItems();
+        Assertions.assertArrayEquals(expected,actual);
+
+    }
+
+
 
 
 

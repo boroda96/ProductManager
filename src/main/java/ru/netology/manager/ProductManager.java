@@ -1,11 +1,12 @@
 package ru.netology.manager;
 
 
+import org.jetbrains.annotations.NotNull;
 import ru.netology.domain.Product;
 import ru.netology.repository.ProductRepository;
 
 public class ProductManager {
-    public ProductRepository repo;
+   public ProductRepository repo;
 
     public ProductManager(ProductRepository repo) {
         this.repo = repo;
@@ -34,15 +35,13 @@ public class ProductManager {
     }
 
     public boolean matches(Product product, String search) {
-        if (product.getName().contains(search)) {
+        return (product.getName().contains(search)) ;
 
-            return true;
-        } else {
-            return false;
-        }
+
 
     }
-
-
 }
+
+
+
 
