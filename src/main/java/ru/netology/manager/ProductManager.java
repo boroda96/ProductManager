@@ -6,7 +6,7 @@ import ru.netology.domain.Product;
 import ru.netology.repository.ProductRepository;
 
 public class ProductManager {
-   public ProductRepository repo;
+    public ProductRepository repo;
 
     public ProductManager(ProductRepository repo) {
         this.repo = repo;
@@ -35,8 +35,7 @@ public class ProductManager {
     }
 
     public boolean matches(Product product, String search) {
-        return (product.getName().contains(search)) ;
-
+        return (product.getName().contains(search));
 
 
     }

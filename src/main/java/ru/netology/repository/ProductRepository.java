@@ -9,7 +9,7 @@ public class ProductRepository {
 
     public void save(Product item) {
         if (findById(item.getId()) != null) {
-            throw new AlreadyExistsException( item.getId() +
+            throw new AlreadyExistsException(item.getId() +
                     " - ID уже существует!!!");
 
         }
@@ -44,6 +44,7 @@ public class ProductRepository {
         items = tmp;
 
     }
+
     public Product findById(int id) {
         for (Product item : items) {
             if (item.getId() == id) {

@@ -11,7 +11,6 @@ import ru.netology.exception.NotFoundException;
 import ru.netology.repository.ProductRepository;
 
 
-
 public class ProductRepositoryTest {
     ProductRepository repo = new ProductRepository();
 
@@ -52,6 +51,7 @@ public class ProductRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void removeByIdAll() {
         repo.removeById(book1.getId());
@@ -65,6 +65,7 @@ public class ProductRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     void setPrice() {
         Book tmp = new Book(3, "Книга 3", 300, "Есенин");
@@ -75,6 +76,7 @@ public class ProductRepositoryTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     void setAuthor() {
         Book tmp = new Book(3, "Книга 3", 300, "Есенин");
@@ -85,6 +87,7 @@ public class ProductRepositoryTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
     public void shouldBookSave10() {
         Product book10 = new Book(10, "Книга 4", 350, "Сталин");
@@ -96,37 +99,38 @@ public class ProductRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
-    @Test
-    public  void shouldRemoveById100(){
 
+    @Test
+    public void shouldRemoveById100() {
 
 
         Assertions.assertThrows(NotFoundException.class, () -> {
             repo.removeById(100);
         });
     }
+
     @Test
-    public  void shouldRemoveByIdMinus100(){
+    public void shouldRemoveByIdMinus100() {
 
 
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(-100);
+        });
+    }
 
-          Assertions.assertThrows(NotFoundException.class, () -> {
-              repo.removeById(-100);
-          });
-        }
     @Test
-    public  void shouldRemoveById4(){
+    public void shouldRemoveById4() {
 
         repo.removeById(4);
 
-        Product[] expected = {book1,book2, book3, smart2, smart3};
+        Product[] expected = {book1, book2, book3, smart2, smart3};
         Product[] actual = repo.getItems();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public  void shouldRemoveByAllId(){
+    public void shouldRemoveByAllId() {
 
         repo.removeById(1);
         repo.removeById(2);
@@ -140,29 +144,28 @@ public class ProductRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
-    public  void shouldSaveId1(){
+    public void shouldSaveId1() {
 
         Assertions.assertThrows(AlreadyExistsException.class, () -> {
             repo.save(book1);
         });
     }
+
     @Test
-    public void shouldSaveId7And8(){
+    public void shouldSaveId7And8() {
         Product book4 = new Book(7, "Победа", 1000, "Лао Дзы");
         Product smart4 = new Smartphone(8, "SuperBuper", 1001, "China project");
 
         repo.save(book4);
         repo.save(smart4);
 
-        Product[] expected = {book1,book2, book3,smart1, smart2, smart3,book4, smart4};
+        Product[] expected = {book1, book2, book3, smart1, smart2, smart3, book4, smart4};
         Product[] actual = repo.getItems();
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
 
     }
-
-
-
 
 
 }
